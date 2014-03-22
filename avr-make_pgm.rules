@@ -1,0 +1,223 @@
+# --------------------------------------------------------------------------
+#                                  The "EMX"
+#                          Embedded Mutable eXecutive
+#                                  Framework
+# 
+#                   Copyright (C) 2014 Edgar (emax) Hermanns 
+# --------------------------------------------------------------------------
+# 
+#  my $email = sprintf ("%s@%s.%s", "emax", "hermanns", "net");
+# 
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU General Public License as published by
+#  the Free Software Foundation, either version 3 of the License, or
+#  (at your option) any later version.
+# 
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU General Public License for more details.
+# 
+#  You should have received a copy of the GNU General Public License
+#  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+# 
+# @file           avr-make_pgm.rules
+# @brief          Embedded Mutable eXecutive component
+# @author         Edgar (emax) Hermanns
+# @date           20140227
+# @version        $Id$
+
+# CHANGE LOG:
+# ##  who  yyyymmdd   bug#  description
+# --  ---  --------  -----  -------------------------------------------------
+#  1  ...  ........  .....  ........
+#  0  emx  20140227  -----  initial version
+# 
+# Hey Emacs, this is a -*- makefile -*-
+
+# AVR-GCC Makefile template, derived from the WinAVR template (which
+# is public domain), believed to be neutral to any flavor of "make"
+# (GNU make, BSD make, SysV make)
+#
+#----------------------------------------
+# parameters to set in project:
+#----------------------------------------
+# SRC:                  list of c-sources 
+# ASRC:                 list of assembler sources
+# PRINTF_LIB:           whether/which printf library to use
+# SCANF_LIB:            whether/which scanf library to use
+# MATH_LIB:             whether to use math-library
+# EXTMEMOPTS:           whether/which external memory options to use
+# AVRDUDE_WRITE_EEPROM: command to program eeprom
+# OTHERLIBS:            full qualified paths to libraries from which this program depends
+#----------------------------------------
+# parameters to set here:
+#----------------------------------------
+# CSTANDARD:            set the C Standard level.
+#                       c89   - "ANSI" C
+#                       gnu89 - c89 plus GCC extensions
+#                       c99   - ISO C99 standard (not yet fully implemented)
+#                       gnu99 - c99 plus GCC extensions
+# CDEFS:                -D options. additional DEFS parameter from project will be appended
+# CINCS:                -I options. additional INCLUDE parameter from project will be appended
+# CWARN:                compiler warning flags
+# CTUNING:              compiler tuning options
+# CEXTRA:               to be documented, currently unused
+# CFLAGS:               all compiler flags concatenated 
+# ASFLAGS:              assembler flags
+# AVRDUDE_PROGRAMMER:   type of programming devide. See avrdude man-page
+# AVRDUDE_PORT:         programming port, e.g. lpt1, usb
+# AVRDUDE_WRITE_FLASH:  command to program flash
+#----------------------------------------
+# Name of this Makefile (used for "make depend" in project-makefile).
+#----------------------------------------
+MAKEFILE            = Makefile
+CC                  = avr-gcc
+OBJCOPY             = avr-objcopy
+OBJDUMP             = avr-objdump
+SIZE                = avr-size
+NM                  = avr-nm
+AVRDUDE             = avrdude
+REMOVE              = rm -f
+MV                  = mv -f
+FORMAT              = ihex
+OBJ                 = $(SRC:.c=.o) $(ASRC:.S=.o) 
+CSTANDARD           = -std=c99
+CDEFS               = -DF_CPU=$(F_CPU)UL
+CDEFS              += $(DEFS)
+CINCS               = 
+CINCS              += $(INCLUDE)
+CWARN               = -Wall -Wstrict-prototypes
+CTUNING             = -funsigned-char -funsigned-bitfields -fpack-struct -fshort-enums
+#CEXTRA             = -Wa,-adhlns=$(<:.c=.lst)
+CFLAGS              = $(CDEBUG) $(CDEFS) $(CINCS) -O$(OPT) $(CWARN) $(CSTANDARD) $(CEXTRA)
+CFLAGS             += $(CTUNING)
+CFLAGS             += $(EXTRACFLAGS)
+ASFLAGS             = -Wa,-adhlns=$(<:.S=.lst),-gstabs 
+AVRDUDE_PROGRAMMER  = avrisp
+AVRDUDE_PORT        = usb
+AVRDUDE_WRITE_FLASH = -U flash:w:$(TARGET).hex
+LDMAP               = -Wl,-Map=$(TARGET).map,--cref
+LDFLAGS             = $(EXTMEMOPTS) $(LDMAP) $(PRINTF_LIB) $(SCANF_LIB) $(MATH_LIB) $(EXTRA_LIBS)
+AVRDUDE_BASIC       = -p $(MCU) -P $(AVRDUDE_PORT) -c $(AVRDUDE_PROGRAMMER)
+AVRDUDE_FLAGS       = $(AVRDUDE_BASIC) $(AVRDUDE_NO_VERIFY) $(AVRDUDE_VERBOSE) $(AVRDUDE_ERASE_COUNTER)
+
+#----------------------------------------
+# Define all listing files.
+#----------------------------------------
+LST                    = $(ASRC:.S=.lst) $(SRC:.c=.lst)
+
+#----------------------------------------
+# Combine all necessary flags and optional flags.
+# Add target processor to flags.
+#----------------------------------------
+ALL_CFLAGS             = -mmcu=$(MCU) -I. $(CFLAGS)
+ALL_ASFLAGS            = -mmcu=$(MCU) -I. -x assembler-with-cpp $(ASFLAGS)
+
+#----------------------------------------
+# Default target.
+#----------------------------------------
+all: build
+
+build: tags elf hex eep bin lss sym
+tags: TAGS_$(TARGET)
+elf:  $(TARGET).elf
+bin:  $(TARGET).bin
+hex:  $(TARGET).hex
+eep:  $(TARGET).eep
+lss:  $(TARGET).lss 
+sym:  $(TARGET).sym
+
+
+#----------------------------------------
+# Program the device.  
+#----------------------------------------
+program: $(TARGET).hex $(TARGET).eep 
+	$(AVRDUDE) $(AVRDUDE_FLAGS) $(AVRDUDE_WRITE_FLASH) $(AVRDUDE_WRITE_EEPROM)
+
+#----------------------------------------
+# Convert ELF to COFF for use in debugging / simulating in AVR Studio or VMLAB.
+#----------------------------------------
+COFFCONVERT=$(OBJCOPY) --debugging \
+--change-section-address .data-0x800000 \
+--change-section-address .bss-0x800000 \
+--change-section-address .noinit-0x800000 \
+--change-section-address .eeprom-0x810000 
+
+#----------------------------------------
+# other targets
+#----------------------------------------
+coff: $(TARGET).elf
+	$(COFFCONVERT) -O coff-avr $(TARGET).elf $(TARGET).cof
+
+extcoff: $(TARGET).elf
+	$(COFFCONVERT) -O coff-ext-avr $(TARGET).elf $(TARGET).cof
+
+$(TARGET).bin: $(TARGET).elf
+	$(OBJCOPY) -j .text -j .data -O binary $< $@
+
+.SUFFIXES: .elf .hex .eep .lss .sym
+
+.elf.hex:
+	$(OBJCOPY) -O ihex -R .eeprom $< $@
+
+.elf.eep:
+	-$(OBJCOPY) -j .eeprom --set-section-flags=.eeprom="alloc,load" \
+	--change-section-lma .eeprom=0 -O $(FORMAT) $< $@
+
+#----------------------------------------
+# Create extended listing file from ELF output file.
+#----------------------------------------
+.elf.lss:
+	$(OBJDUMP) -h -S $< > $@
+
+#----------------------------------------
+# Create a symbol table from ELF output file.
+#----------------------------------------
+.elf.sym:
+	$(NM) -n $< > $@
+
+.elf.bin:
+	$(OBJCOPY) -j .text -j .data -O binary $< $@
+
+#----------------------------------------
+# Link: create ELF output file from object files.
+#----------------------------------------
+$(TARGET).elf: $(OBJ) $(OTHERLIBS)
+	$(CC) $(ALL_CFLAGS) $(LINKER_FLAGS) $(OBJ) --output $@ $(LDFLAGS)
+	# $(NM) --radix=d --size-sort -S $@
+	$(SIZE) $@
+
+TAGS_$(TARGET): $(SRC)
+	etags $(SRC) -o TAGS_$(TARGET)
+
+# Compile: create object files from C source files.
+.c.o:
+	echo $(OBJ)
+	$(CC) -c $(ALL_CFLAGS) $< -o $@ 
+
+#----------------------------------------
+# Compile: create assembler files from C source files.
+#----------------------------------------
+.c.s:
+	$(CC) -S $(ALL_CFLAGS) $< -o $@
+
+#----------------------------------------
+# Assemble: create object files from assembler source files.
+#----------------------------------------
+.S.o:
+	$(CC) -c $(ALL_ASFLAGS) $< -o $@
+
+
+#----------------------------------------
+# Target: clean project.
+#----------------------------------------
+clean:
+	$(REMOVE) $(TARGET).hex $(TARGET).eep $(TARGET).cof $(TARGET).elf \
+	$(TARGET).map $(TARGET).sym $(TARGET).lss $(TARGET).bin \
+	$(OBJ) $(LST) $(SRC:.c=.s) $(SRC:.c=.i) $(SRC:.c=.d) TAGS_$(TARGET)
+
+
+.PHONY:	all build elf hex eep lss sym program coff extcoff clean depend tags
+

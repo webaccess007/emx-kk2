@@ -1,0 +1,1 @@
+../../../readEeprom.sh
