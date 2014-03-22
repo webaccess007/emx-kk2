@@ -1,0 +1,5 @@
+# recursively set ignore for all filenames in '.svnignore':
+# NOTE this file resides in the repository-root
+#      so call this from the repository-root directory
+
+svn propset svn:ignore -R -F .svnignore .
