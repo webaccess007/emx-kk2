@@ -23,17 +23,17 @@
 */
 
 /**
- * @file           DisplayP.c
+ * @file           DisplayDP.c
  * @brief          Embedded Mutable eXecutive component
  * @author         Edgar (emax) Hermanns
- * @date           20140309
+ * @date           20140323
  * @version        $Id$
  *
  * CHANGE LOG:
  * ##  who  yyyymmdd   bug#  description
  * --  ---  --------  -----  -------------------------------------------------
  *  1  ...  ........  .....  ........
- *  0  emx  20140309  -----  initial version
+ *  0  emx  20140323  -----  initial version
  */
 #include "emx/Config.h"
 #include "emx/Types.h"
@@ -45,17 +45,17 @@
 #include <avr/eeprom.h>
 
 
-void displayP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aPtrUnion, uint8_t aY, uint8_t aColor)
+void displayDP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aPtrUnion, uint8_t aY, uint8_t aCol)
 {
     // the value holder
     S32MMSValCb_t s32MMSValCb;
-    pgmToRamP(aPType, aPtrUnion, &s32MMSValCb);
+    pgmToRamDP(aPType, aPtrUnion, &s32MMSValCb);
     // max size: -21474836.48\0 = 13 Byte
     char buf[13];
     itoa (s32MMSValCb.m_val, buf, 10);    
-    // if (s32MMSValCb.m_scale)  // not a scaled value
+    // if (s32MMSValCb.m_scale)             // not a 'scaled' value
     //     rescale(s32MMSValCb.m_scale, buf);
-    displayValue(AT_RAM, buf, aY, aColor);
+    displayValue(AT_RAM, buf, aY, aCol);
 } // editVar
 
 

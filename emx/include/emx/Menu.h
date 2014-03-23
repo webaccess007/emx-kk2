@@ -77,6 +77,18 @@
                               (STG(EEPROM))   | \
                               (RW(RW))),        \
                               .m_typeHandler=&editP,               .m_ptr = { .m_voidAdr = &a }
+#define U8DPE(a)    .m_pType=((BPT(NUMBER))   | \
+                              (BC(8BIT))      | \
+                              (SGN(UNSIGNED)) | \
+                              (STG(EEPROM))   | \
+                              (RW(RW))),        \
+                              .m_typeHandler=&editDP,              .m_ptr = { .m_voidAdr = &a }
+#define S8DPE(a)    .m_pType=((BPT(NUMBER))   | \
+                              (BC(8BIT))      | \
+                              (SGN(SIGNED))   | \
+                              (STG(EEPROM))   | \
+                              (RW(RW))),        \
+                              .m_typeHandler=&editDP,              .m_ptr = { .m_voidAdr = &a }
 #define U8PER(a)    .m_pType=((BPT(NUMBER))   | \
                               (BC(8BIT))      | \
                               (SGN(UNSIGNED)) | \
@@ -125,6 +137,18 @@
                               (STG(EEPROM))   | \
                               (RW(RW))),        \
                                .m_typeHandler=&editMMDP,           .m_ptr = { .m_voidAdr = &a }
+#define U8MMSDPE(a) .m_pType=((BPT(NUMBER))   | \
+                              (BC(8BIT))      | \
+                              (SGN(UNSIGNED)) | \
+                              (STG(EEPROM))   | \
+                              (RW(RW))),        \
+                               .m_typeHandler=&editMMSDP,          .m_ptr = { .m_voidAdr = &a }
+#define S8MMSDPE(a) .m_pType=((BPT(NUMBER))   | \
+                              (BC(8BIT))      | \
+                              (SGN_SIGNED   ) | \
+                              (STG(EEPROM))   | \
+                              (RW(RW))),        \
+                               .m_typeHandler=&editMMSDP,          .m_ptr = { .m_voidAdr = &a }
 #define U8MMPEC(a)  .m_pType=((BPT(NUMBER))   | \
                               (BC(8BIT))      | \
                               (SGN(UNSIGNED)) | \
@@ -192,42 +216,36 @@ void     getValue(const void* aAdr, uint8_t aPType, int32_t* aResult);
 void     putValue(void* aDdr, uint8_t aPType, int32_t* aValue);
 
 void*    pgmToRamMMDP(uint8_t aPType, PtrUnion_t* aPtrUnion, S32MMSValCb_t *aS32MMSValCb);
+void*    pgmToRamMMSDP(uint8_t aPType, PtrUnion_t* aPtrUnion, S32MMSValCb_t *aS32MMSValCb);
 void*    pgmToRamMMP(uint8_t aPType, PtrUnion_t* aPtrUnion,  S32MMSValCb_t *aS32MMSValCb);
 void*    pgmToRamMMPC(uint8_t aPType, PtrUnion_t* aPtrUnion, S32MMSValCb_t *aS32MMSValCb);
 void*    pgmToRamMMSP(uint8_t aPType, PtrUnion_t* aPtrUnion, S32MMSValCb_t *aS32MMSValCb);
 void*    pgmToRamP(uint8_t aPType, PtrUnion_t* aPtrUnion,    S32MMSValCb_t *aS32MMSValCb);
+void*    pgmToRamDP(uint8_t aPType, PtrUnion_t* aPtrUnion,    S32MMSValCb_t *aS32MMSValCb);
 void*    pgmToRamITLP(uint8_t aPType, PtrUnion_t* aPtrUnion, ITextListIdx_t *aITextListIdx);
 void*    pgmToRamITLDP(uint8_t aPType, PtrUnion_t* aPtrUnion, ITextListIdx_t *aITextListIdx);
 
 uint8_t  displayMenu(const Menu_t* aMenu, uint8_t aButtonMask);
 
 void     displayMMDP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
+void     displayMMSDP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
 void     displayMMP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
 void     displayMMPC(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
 void     displayMMSP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
 void     displayP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
+void     displayDP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
 void     displayITLP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
 void     displayITLDP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
 
 void     editMMDP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
+void     editMMSDP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
 void     editMMP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
 void     editMMPC(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
 void     editMMSP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
 void     editP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
+void     editDP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
 void     editITLP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
 void     editITLDP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
-
-void     handlerU8PE(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
-void     handlerU8PER(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
-void     handlerU8MMPE(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
-void     handlerU8MMDPE(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
-void     handlerU8MMSPE(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
-void     handlerU8MMPEC(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
-void     handlerU16MMSPE(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
-void     handlerITLPE(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
-void     handlerS8MMPE(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
-void     handlerS8MMDPE(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aAdr,uint8_t aY, uint8_t aCol);
-
 
 void     displayVar(const MenuEntry_t* aMe, uint8_t aY, uint8_t fgColor);
 void     displayValue(AdrType_t aAdrType, const char* aBuf, uint8_t aY, uint8_t aColor);

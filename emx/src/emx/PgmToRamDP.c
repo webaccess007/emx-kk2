@@ -23,70 +23,66 @@
 */
 
 /**
- * @file           EditP.c
+ * @file           PgmToRamDP.c
  * @brief          Embedded Mutable eXecutive component
  * @author         Edgar (emax) Hermanns
- * @date           20140309
+ * @date           20140323
  * @version        $Id$
  *
  * CHANGE LOG:
  * ##  who  yyyymmdd   bug#  description
  * --  ---  --------  -----  -------------------------------------------------
  *  1  ...  ........  .....  ........
- *  0  emx  20140309  -----  initial version
+ *  0  emx  20140323  -----  initial version
  */
-#include "emx/Config.h"
-#include "emx/Types.h"
-#include "emx/Buttons.h"
-#include "emx/Menu.h"
+#include <emx/Types.h>
+#include <emx/Menu.h>
 
-#include <stdlib.h>
 #include <stdint.h>
-#include <avr/pgmspace.h>
-#include <avr/eeprom.h>
+#include <string.h>
 
-void editP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aPgmPtrUnion, uint8_t aY, uint8_t aColor)
+void* pgmToRamDP(uint8_t aPType, PtrUnion_t* aPtrUnion, S32MMSValCb_t *aS32MMSValCb)
 {
-    if (aHandlerType == HT_DISPLAY)
-    {
-        displayP(aHandlerType, aPType, aPgmPtrUnion, aY, aColor);
-        return;
-    }
+    // PtrUnion points o DP type
+    ValueUnion_t u;
+    memset(aS32MMSValCb, 0, sizeof(S32MMSValCb_t));
 
-    // the value holder
-    S32MMSValCb_t s32MMSValCb;
-    void* tgtAdr = pgmToRamP(aPType, aPgmPtrUnion, &s32MMSValCb);
-    
-    if(IS8BIT(aPType))    
+    // get adresses
+    pgm2ram(&u, aPtrUnion, (IS8BIT(aPType) ? sizeof(S8ValDP_t) : sizeof(S16ValDP_t)));
+
+    // set defaults
+    DynDataPCallback_t getDFunc = (void*)     u.m_u8ValDP.m_callback;
+    void* dataInfo              = (void*)     u.m_u8ValDP.m_dynDataInfo;
+
+    if(IS8BIT(aPType))
     {
         if (ISSIGNED(aPType))
         {
-            s32MMSValCb.m_min = INT8_MIN;
-            s32MMSValCb.m_max = INT8_MAX;
+            getDFunc            = u.m_s8ValDP.m_callback;
+            dataInfo            = u.m_s8ValDP.m_dynDataInfo;
         }
         else
         {
-            // s32MMSValCb.m_min = UINT8_MIN; // == 0, already done by memset
-            s32MMSValCb.m_max = UINT8_MAX;
+            // getDFunc         = u.m_u8ValDP.m_callback; // done be default initialization
+            // dataInfo         = u.m_u8ValDP.m_dynDataInfo; // done be default initialization
         }
-    }
+    } // 8bit
     else if (IS16BIT(aPType))
     {
         if (ISSIGNED(aPType))
         {
-            s32MMSValCb.m_min = INT16_MIN;
-            s32MMSValCb.m_max = INT16_MAX;
+            getDFunc            = u.m_s16ValDP.m_callback;
+            dataInfo            = u.m_s16ValDP.m_dynDataInfo;
         }
         else
         {
-            // s32MMSValCb.m_min = UINT16_MIN; // == 0, already done by memset
-            s32MMSValCb.m_max = UINT16_MAX;
+            getDFunc            = u.m_u16ValDP.m_callback;
+            dataInfo            = u.m_u16ValDP.m_dynDataInfo;
         }
-    }
+    } // 16bit
 
-    if (editNumber(&s32MMSValCb, aY) != BT_ENTER)
-        return;
-    
-    putValue(tgtAdr, aPType, &s32MMSValCb.m_val);
-} // editVar
-
+    // get m_val
+    void* dataP                 = (void*)   getDFunc(dataInfo);
+    getValue(dataP, aPType, &aS32MMSValCb->m_val);
+    return dataP;             
+} // pgmToRamMMS

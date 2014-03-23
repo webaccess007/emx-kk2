@@ -53,8 +53,8 @@ void displayMMP(HandlerType_t aHandlerType, uint8_t aPType, PtrUnion_t* aPtrUnio
     // max size: -21474836.48\0 = 13 Byte
     char buf[13];
     itoa (s32MMSValCb.m_val, buf, 10);    
-    if (s32MMSValCb.m_scale) 
-        rescale(s32MMSValCb.m_scale, buf);
+    // if (s32MMSValCb.m_scale)  // not a scaled value
+    //     rescale(s32MMSValCb.m_scale, buf);
     displayValue(AT_RAM, buf, aY, aColor);
 } // editVar
 

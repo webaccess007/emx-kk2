@@ -45,7 +45,6 @@
 #define NANOSEC_PER_CYCLE (MICROSEC_PER_SEC/(F_CPU/1000))
 #define CYCLES_FOR_NANOSECS(a) (a/(NANOSEC_PER_CYCLE))
 
-
 /**
  * value type flags
  */
@@ -206,96 +205,124 @@ typedef void* (*DynDataPCallback_t)(void* aAdr);
 // ---------------------------------------
 
 typedef struct {
-    uint8_t*           m_dataP;
+    uint8_t*            m_dataP;
 } U8ValP_t;
 
 typedef struct {
-    int8_t*            m_dataP;
+    int8_t*             m_dataP;
 } S8ValP_t;
 
+// a dynamic pointer to eeprom adress, resolved by callback
 typedef struct {
-    uint8_t            m_min;
-    uint8_t            m_max;
-    void*              m_dataP;
+    uint8_t*            m_dynDataInfo;
+    DynDataPCallback_t  m_callback;
+} U8ValDP_t;
+
+typedef struct {
+    uint8_t*            m_dynDataInfo;
+    DynDataPCallback_t  m_callback;
+} S8ValDP_t;
+
+
+typedef struct {
+    uint8_t             m_min;
+    uint8_t             m_max;
+    void*               m_dataP;
 } U8MMValP_t;
 
 typedef struct {
-    int8_t             m_min;
-    int8_t             m_max;
-    void*              m_dataP;
+    int8_t              m_min;
+    int8_t              m_max;
+    void*               m_dataP;
 } S8MMValP_t;
 
 typedef struct {
-    uint8_t            m_scale;
-    uint8_t            m_min;
-    uint8_t            m_max;
-    uint8_t            m_val;
+    uint8_t             m_scale;
+    uint8_t             m_min;
+    uint8_t             m_max;
+    uint8_t             m_val;
 } U8MMSVal_t;
 
 typedef struct {
-    uint8_t            m_scale;
-    int8_t             m_min;
-    int8_t             m_max;
-    int8_t             m_val;
+    uint8_t             m_scale;
+    int8_t              m_min;
+    int8_t              m_max;
+    int8_t              m_val;
 } S8MMSVal_t;
 
 typedef struct {
-    uint8_t            m_scale;
-    uint8_t            m_min;
-    uint8_t            m_max;
-    void*              m_dataP;
+    uint8_t             m_scale;
+    uint8_t             m_min;
+    uint8_t             m_max;
+    void*               m_dataP;
 } U8MMSValP_t;
 
 typedef struct {
-    uint8_t            m_scale;
-    int8_t             m_min;
-    int8_t             m_max;
-    void*              m_dataP;
+    uint8_t             m_scale;
+    int8_t              m_min;
+    int8_t              m_max;
+    void*               m_dataP;
 } S8MMSValP_t;
 
 typedef struct {
-    uint8_t            m_scale;
-    uint8_t            m_min;
-    uint8_t            m_max;
-    void*              m_dataP;
-    CallbackFunctor_t  m_callback;
+    uint8_t             m_scale;
+    uint8_t             m_min;
+    uint8_t             m_max;
+    void*               m_dataP;
+    CallbackFunctor_t   m_callback;
 } U8MMSValPCb_t;
 
 typedef struct {
-    uint8_t            m_scale;
-    int8_t             m_min;
-    int8_t             m_max;
-    void*              m_dataP;
-    CallbackFunctor_t  m_callback;
+    uint8_t             m_scale;
+    int8_t              m_min;
+    int8_t              m_max;
+    void*               m_dataP;
+    CallbackFunctor_t   m_callback;
 } S8MMSValPCb_t;
 
 // a dynamic pointer to eeprom adress, resolved by callback
 typedef struct {
-    uint8_t            m_min;
-    uint8_t            m_max;
-    uint8_t*           m_dynDataInfo;
-    DynDataPCallback_t m_callback;
+    uint8_t             m_min;
+    uint8_t             m_max;
+    uint8_t*            m_dynDataInfo;
+    DynDataPCallback_t  m_callback;
 } U8MMValDP_t;
 
 typedef struct {
-    int8_t             m_min;
-    int8_t             m_max;
-    uint8_t*           m_dynDataInfo;
-    DynDataPCallback_t m_callback;
+    int8_t              m_min;
+    int8_t              m_max;
+    uint8_t*            m_dynDataInfo;
+    DynDataPCallback_t  m_callback;
 } S8MMValDP_t;
 
+typedef struct {
+    uint8_t             m_scale;
+    uint8_t             m_min;
+    uint8_t             m_max;
+    uint8_t*            m_dynDataInfo;
+    DynDataPCallback_t  m_callback;
+} U8MMSValDP_t;
+
+typedef struct {
+    uint8_t             m_scale;
+    int8_t              m_min;
+    int8_t              m_max;
+    uint8_t*            m_dynDataInfo;
+    DynDataPCallback_t  m_callback;
+} S8MMSValDP_t;
+
 typedef struct { 
-    uint8_t            m_min;
-    uint8_t            m_max;
-    void*              m_dataP;
-    CallbackFunctor_t  m_callback;
+    uint8_t             m_min;
+    uint8_t             m_max;
+    void*               m_dataP;
+    CallbackFunctor_t   m_callback;
 } U8MMValPCb_t;
 
 typedef struct { 
-    int8_t             m_min;
-    int8_t             m_max;
-    void*              m_dataP;
-    CallbackFunctor_t  m_callback;
+    int8_t              m_min;
+    int8_t              m_max;
+    void*               m_dataP;
+    CallbackFunctor_t   m_callback;
 } S8MMValPCb_t;
 
 // ---------------------------------------
@@ -303,51 +330,62 @@ typedef struct {
 // ---------------------------------------
 
 typedef struct {
-    uint16_t*          m_dataP;
+    uint16_t*           m_dataP;
 } U16ValP_t;
 
 typedef struct {
-    int16_t*           m_dataP;
+    uint16_t*           m_dynDataInfo;
+    DynDataPCallback_t  m_callback;
+} U16ValDP_t;
+
+typedef struct {
+    int16_t*            m_dataP;
 } S16ValP_t;
 
 typedef struct {
-    uint16_t           m_min;
-    uint16_t           m_max;
-    void*              m_dataP;
+    int16_t*            m_dynDataInfo;
+    DynDataPCallback_t  m_callback;
+} S16ValDP_t;
+
+
+typedef struct {
+    uint16_t            m_min;
+    uint16_t            m_max;
+    void*               m_dataP;
 } U16MMValP_t;
 
 typedef struct {
-    int16_t            m_min;
-    int16_t            m_max;
-    void*              m_dataP;
+    int16_t             m_min;
+    int16_t             m_max;
+    void*               m_dataP;
 } S16MMValP_t;
 
 typedef struct {
-    uint16_t           m_min;
-    uint16_t           m_max;
-    void*              m_dataP;
-    CallbackFunctor_t  m_callback;
+    uint16_t            m_min;
+    uint16_t            m_max;
+    void*               m_dataP;
+    CallbackFunctor_t   m_callback;
 } U16MMValPCb_t;
 
 typedef struct {
-    int16_t            m_min;
-    int16_t            m_max;
-    void*              m_dataP;
-    CallbackFunctor_t  m_callback;
+    int16_t             m_min;
+    int16_t             m_max;
+    void*               m_dataP;
+    CallbackFunctor_t   m_callback;
 } S16MMValPCb_t;
 
 typedef struct {
-    uint8_t            m_scale;
-    uint16_t           m_min;
-    uint16_t           m_max;
-    void*              m_dataP;
+    uint8_t             m_scale;
+    uint16_t            m_min;
+    uint16_t            m_max;
+    void*               m_dataP;
 } U16MMSValP_t;
 
 typedef struct {
-    uint8_t            m_scale;
-    int16_t            m_min;
-    int16_t            m_max;
-    void*              m_dataP;
+    uint8_t             m_scale;
+    int16_t             m_min;
+    int16_t             m_max;
+    void*               m_dataP;
 } S16MMSValP_t;
 
 // a dynamic pointer to eeprom adress, resolved by callback
@@ -355,30 +393,46 @@ typedef struct {
     uint16_t            m_min;
     uint16_t            m_max;
     uint16_t*           m_dynDataInfo;
-    DynDataPCallback_t m_callback;
+    DynDataPCallback_t  m_callback;
 } U16MMValDP_t;
 
 typedef struct {
     int16_t             m_min;
     int16_t             m_max;
     uint16_t*           m_dynDataInfo;
-    DynDataPCallback_t m_callback;
+    DynDataPCallback_t  m_callback;
 } S16MMValDP_t;
 
 typedef struct {
-    uint8_t            m_scale;
-    uint16_t           m_min;
-    uint16_t           m_max;
-    void*              m_dataP;
-    CallbackFunctor_t  m_callback;
+    uint8_t             m_scale;
+    uint16_t            m_min;
+    uint16_t            m_max;
+    uint16_t*           m_dynDataInfo;
+    DynDataPCallback_t  m_callback;
+} U16MMSValDP_t;
+
+typedef struct {
+    uint8_t             m_scale;
+    int16_t             m_min;
+    int16_t             m_max;
+    uint16_t*           m_dynDataInfo;
+    DynDataPCallback_t  m_callback;
+} S16MMSValDP_t;
+
+typedef struct {
+    uint8_t             m_scale;
+    uint16_t            m_min;
+    uint16_t            m_max;
+    void*               m_dataP;
+    CallbackFunctor_t   m_callback;
 } U16MMSValPCb_t;
 
 typedef struct {
-    uint8_t            m_scale;
-    int16_t            m_min;
-    int16_t            m_max;
-    void*              m_dataP;
-    CallbackFunctor_t  m_callback;
+    uint8_t             m_scale;
+    int16_t             m_min;
+    int16_t             m_max;
+    void*               m_dataP;
+    CallbackFunctor_t   m_callback;
 } S16MMSValPCb_t;
 
 // ---------------------------------------
@@ -386,37 +440,37 @@ typedef struct {
 // ---------------------------------------
 
 typedef struct {
-    uint8_t            m_scale;
-    int32_t            m_min;
-    int32_t            m_max;
-    int32_t            m_val;
+    uint8_t             m_scale;
+    int32_t             m_min;
+    int32_t             m_max;
+    int32_t             m_val;
 } S32MMSVal_t;
 
 // this is the sctruct which is passed to EditNumber
 typedef struct {
-    uint8_t            m_scale;
-    int32_t            m_min;
-    int32_t            m_max;
-    int32_t            m_val;
-    CallbackFunctor_t  m_callback;
+    uint8_t             m_scale;
+    int32_t             m_min;
+    int32_t             m_max;
+    int32_t             m_val;
+    CallbackFunctor_t   m_callback;
 } S32MMSValCb_t;
 
 
 typedef struct {
-    uint8_t            m_scale;
-    int32_t            m_min;
-    int32_t            m_max;
-    int32_t            m_val;
-    void*              m_dataP;
+    uint8_t             m_scale;
+    int32_t             m_min;
+    int32_t             m_max;
+    int32_t             m_val;
+    void*               m_dataP;
 } S32MMSValDP_t;
 
 typedef struct {
-    uint8_t            m_scale;
-    int32_t            m_min;
-    int32_t            m_max;
-    int32_t            m_val;
-    void*              m_dataP;
-    CallbackFunctor_t  m_callback;
+    uint8_t             m_scale;
+    int32_t             m_min;
+    int32_t             m_max;
+    int32_t             m_val;
+    void*               m_dataP;
+    CallbackFunctor_t   m_callback;
 } S32MMSValDPCb_t;
 
 
@@ -428,67 +482,75 @@ typedef struct {
 
 typedef struct
 {
-    uint8_t            m_entryCount;
-    uint8_t*           m_idxP;              // points to index to the text entry
-    const char*        m_texts[];
+    uint8_t             m_entryCount;
+    uint8_t*            m_idxP;              // points to index to the text entry
+    const char*         m_texts[];
 } ITextListP_t;
 
 typedef struct
 {
-    uint8_t            m_entryCount;
-    uint8_t*           m_dynDataInfo;       // relative address for m_callback
-    DynDataPCallback_t m_callback;
-    const char*        m_texts[];
+    uint8_t             m_entryCount;
+    uint8_t*            m_dynDataInfo;       // relative address for m_callback
+    DynDataPCallback_t  m_callback;
+    const char*         m_texts[];
 } ITextListDP_t;
 
 typedef struct
 {
-    uint8_t            m_entryCount;
-    uint8_t            m_idx;               // contains the index itself
-    const char* const* m_textP;             // where the text-pointers start
+    uint8_t             m_entryCount;
+    uint8_t             m_idx;               // contains the index itself
+    const char* const*  m_textP;             // where the text-pointers start
 } ITextListIdx_t;
 
 
 typedef union
 {
-    uint8_t            m_u8Val;
-    uint16_t           m_u16Val;
+    uint8_t             m_u8Val;
+    uint16_t            m_u16Val;
 } IntValueUnion_t;
 
 typedef union {
-    S8ValP_t           m_s8ValP;
-    S8MMValP_t         m_s8MMValP;
-    S8MMValPCb_t       m_s8MMValPCb;
-    S8MMValDP_t        m_s8MMValDP;
-    S8MMSVal_t         m_s8MMSVal;
-    S8MMSValP_t        m_s8MMSValP;
-    S8MMSValPCb_t      m_s8MMSValPCb;
+    S8ValP_t            m_s8ValP;
+    S8ValDP_t           m_s8ValDP;
+    S8MMValP_t          m_s8MMValP;
+    S8MMValPCb_t        m_s8MMValPCb;
+    S8MMValDP_t         m_s8MMValDP;
+    S8MMSVal_t          m_s8MMSVal;
+    S8MMSValP_t         m_s8MMSValP;
+    S8MMSValPCb_t       m_s8MMSValPCb;
+    S8MMSValDP_t        m_s8MMSValDP;
 
-    U8ValP_t           m_u8ValP;
-    U8MMValP_t         m_u8MMValP;
-    U8MMValPCb_t       m_u8MMValPCb;
-    U8MMValDP_t        m_u8MMValDP;
-    U8MMSVal_t         m_u8MMSVal;
-    U8MMSValP_t        m_u8MMSValP;
-    U8MMSValPCb_t      m_u8MMSValPCb;
+    U8ValP_t            m_u8ValP;
+    U8ValDP_t           m_u8ValDP;
+    U8MMValP_t          m_u8MMValP;
+    U8MMValPCb_t        m_u8MMValPCb;
+    U8MMValDP_t         m_u8MMValDP;
+    U8MMSVal_t          m_u8MMSVal;
+    U8MMSValP_t         m_u8MMSValP;
+    U8MMSValPCb_t       m_u8MMSValPCb;
+    U8MMSValDP_t        m_u8MMSValDP;
 
-    U16ValP_t          m_u16ValP;
-    U16MMValP_t        m_u16MMValP;
-    U16MMValPCb_t      m_u16MMValPCb;
-    U16MMValDP_t       m_u16MMValDP;
-    U16MMSValP_t       m_u16MMSValP;
-    U16MMSValPCb_t     m_u16MMSValPCb;
+    U16ValP_t           m_u16ValP;
+    U16ValDP_t          m_u16ValDP;
+    U16MMValP_t         m_u16MMValP;
+    U16MMValPCb_t       m_u16MMValPCb;
+    U16MMValDP_t        m_u16MMValDP;
+    U16MMSValP_t        m_u16MMSValP;
+    U16MMSValPCb_t      m_u16MMSValPCb;
+    U16MMSValDP_t       m_u16MMSValDP;
 
-    S16ValP_t          m_s16ValP;
-    S16MMValP_t        m_s16MMValP;
-    S16MMValPCb_t      m_s16MMValPCb;
-    S16MMValDP_t       m_s16MMValDP;
-    S16MMSValP_t       m_s16MMSValP;
-    S16MMSValPCb_t     m_s16MMSValPCb;
+    S16ValP_t           m_s16ValP;
+    S16ValDP_t          m_s16ValDP;
+    S16MMValP_t         m_s16MMValP;
+    S16MMValPCb_t       m_s16MMValPCb;
+    S16MMValDP_t        m_s16MMValDP;
+    S16MMSValP_t        m_s16MMSValP;
+    S16MMSValPCb_t      m_s16MMSValPCb;
+    S16MMSValDP_t       m_s16MMSValDP;
 
-    S32MMSVal_t        m_s32MMSVal;
-    S32MMSValDP_t      m_s32MMSValDP;
-    S32MMSValDPCb_t    m_s32MMSValDPCb;
+    S32MMSVal_t         m_s32MMSVal;
+    S32MMSValDP_t       m_s32MMSValDP;
+    S32MMSValDPCb_t     m_s32MMSValDPCb;
 } ValueUnion_t;
 
 
