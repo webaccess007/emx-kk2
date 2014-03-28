@@ -45,7 +45,7 @@ SAVFILES += examples tests
 
 TARDIRS   = emx examples
 
-TARFILES  = avr-make_*rules Makefile Cheader.txt Mheader.txt flashKK.sh Doc/EMXmanualAndReference*.pdf
+TARFILES  = avr-make_*rules Makefile Cheader.txt Mheader.txt flashKK.sh Doc/EMXmanualCurrent.pdf
 TARFILES += addhdr.pl flashcount.txt readEeprom.sh writeEeprom.sh gpl.txt
 # remember: the first target is always the default target
 

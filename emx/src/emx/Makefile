@@ -87,6 +87,26 @@ Debug.o: Debug.c ../../include/emx/Debug.h ../../include/emx/Types.h \
  ../../include/emx/Lcd.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/string.h \
  ../../include/emx/Buttons.h
+DisplayDP.o: DisplayDP.c ../../include/emx/Config.h \
+ ../../include/emx/Types.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdlib.h \
+ /usr/lib/gcc/avr/4.7.2/include/stddef.h \
+ /usr/lib/gcc/avr/4.7.2/include/stdint.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdint.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/pgmspace.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/inttypes.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/io.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/sfr_defs.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/iom324.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/iomxx4.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/portpins.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/common.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/version.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/fuse.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/lock.h \
+ ../../include/emx/Debug.h ../../include/emx/Menu.h \
+ ../../include/emx/EmxFont.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/eeprom.h
 DisplayITLDP.o: DisplayITLDP.c ../../include/emx/Config.h \
  ../../include/emx/Types.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdlib.h \
@@ -209,6 +229,26 @@ DisplayMMPC.o: DisplayMMPC.c ../../include/emx/Config.h \
  ../../include/emx/Debug.h ../../include/emx/Menu.h \
  ../../include/emx/EmxFont.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/eeprom.h
+DisplayMMSDP.o: DisplayMMSDP.c ../../include/emx/Config.h \
+ ../../include/emx/Types.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdlib.h \
+ /usr/lib/gcc/avr/4.7.2/include/stddef.h \
+ /usr/lib/gcc/avr/4.7.2/include/stdint.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdint.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/pgmspace.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/inttypes.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/io.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/sfr_defs.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/iom324.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/iomxx4.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/portpins.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/common.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/version.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/fuse.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/lock.h \
+ ../../include/emx/Debug.h ../../include/emx/Menu.h \
+ ../../include/emx/EmxFont.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/eeprom.h
 DisplayMMSP.o: DisplayMMSP.c ../../include/emx/Config.h \
  ../../include/emx/Types.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdlib.h \
@@ -281,6 +321,25 @@ DrawEditFrame.o: DrawEditFrame.c ../../include/emx/Lcd.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdint.h \
  ../../include/emx/EmxFont.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/string.h
+EditDP.o: EditDP.c ../../include/emx/Config.h ../../include/emx/Types.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdlib.h \
+ /usr/lib/gcc/avr/4.7.2/include/stddef.h \
+ /usr/lib/gcc/avr/4.7.2/include/stdint.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdint.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/pgmspace.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/inttypes.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/io.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/sfr_defs.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/iom324.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/iomxx4.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/portpins.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/common.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/version.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/fuse.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/lock.h \
+ ../../include/emx/Debug.h ../../include/emx/Buttons.h \
+ ../../include/emx/Menu.h ../../include/emx/EmxFont.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/eeprom.h
 EditITLDP.o: EditITLDP.c ../../include/emx/Config.h \
  ../../include/emx/Types.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdlib.h \
@@ -361,6 +420,26 @@ EditMMP.o: EditMMP.c ../../include/emx/Config.h ../../include/emx/Types.h \
  ../../include/emx/Menu.h ../../include/emx/EmxFont.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/eeprom.h
 EditMMPC.o: EditMMPC.c ../../include/emx/Config.h \
+ ../../include/emx/Types.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdlib.h \
+ /usr/lib/gcc/avr/4.7.2/include/stddef.h \
+ /usr/lib/gcc/avr/4.7.2/include/stdint.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdint.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/pgmspace.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/inttypes.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/io.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/sfr_defs.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/iom324.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/iomxx4.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/portpins.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/common.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/version.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/fuse.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/lock.h \
+ ../../include/emx/Debug.h ../../include/emx/Buttons.h \
+ ../../include/emx/Menu.h ../../include/emx/EmxFont.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/eeprom.h
+EditMMSDP.o: EditMMSDP.c ../../include/emx/Config.h \
  ../../include/emx/Types.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdlib.h \
  /usr/lib/gcc/avr/4.7.2/include/stddef.h \
@@ -828,6 +907,13 @@ PgmToRam.o: PgmToRam.c \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/version.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/fuse.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/lock.h
+PgmToRamDP.o: PgmToRamDP.c ../../include/emx/Types.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdlib.h \
+ /usr/lib/gcc/avr/4.7.2/include/stddef.h \
+ /usr/lib/gcc/avr/4.7.2/include/stdint.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdint.h \
+ ../../include/emx/Menu.h ../../include/emx/EmxFont.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/string.h
 PgmToRamITLDP.o: PgmToRamITLDP.c ../../include/emx/Config.h \
  ../../include/emx/Types.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdlib.h \
@@ -901,6 +987,13 @@ PgmToRamMMPC.o: PgmToRamMMPC.c ../../include/emx/Config.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/avr/lock.h \
  ../../include/emx/Debug.h ../../include/emx/Menu.h \
  ../../include/emx/EmxFont.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/string.h
+PgmToRamMMSDP.o: PgmToRamMMSDP.c ../../include/emx/Types.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdlib.h \
+ /usr/lib/gcc/avr/4.7.2/include/stddef.h \
+ /usr/lib/gcc/avr/4.7.2/include/stdint.h \
+ /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdint.h \
+ ../../include/emx/Menu.h ../../include/emx/EmxFont.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/string.h
 PgmToRamMMSP.o: PgmToRamMMSP.c ../../include/emx/Types.h \
  /usr/lib/gcc/avr/4.7.2/../../../avr/include/stdlib.h \
